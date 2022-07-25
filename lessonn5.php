@@ -48,7 +48,7 @@ print_r(array_diff($name1,$name2)) ;
 <table border="1">
 <style>
 table{
-    width: 100px;
+    width: 500px;
 }
 td{
     background-color: white;
@@ -56,9 +56,32 @@ td{
 .black{
     background-color: black;
 }
+.white{
+    background-color: white;
+    width: 50px;
+    height: 50px;
+}
 .green{
     background-color: green;
     color: yellow;
+    
+}
+.days{
+    background-color: salmon;
+    width: 50px;
+    height: 50px;
+}
+.currentdays{
+    background-color: red;
+    width: 50px;
+    height: 50px;
+}
+.weekend{
+    background-color: salmon;
+    width: 50px;
+    height: 50px;
+    color: white;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 </style>
 <?php
@@ -107,5 +130,84 @@ foreach($pages as $namePage=>$linkPage){
     }
     
 }
-
+//Итог
+$cart=[
+    13=>['name'=>'Кеды','count'=>2,'price'=>123],
+    28=>['name'=>'Самолёт','count'=>1,'price'=>9999999]
+];
+$totalPrice=0;
 ?>
+<table border="1">
+    <tr>
+        <th>Название товара</th>
+        <th>Цена</th>
+        <th>Кол-во</th>
+    </tr>
+<?php
+foreach($cart as $id=>$product):?>
+    <tr>
+     <td><?=$product['name']?></td>
+     <td><?=$product['price']?></td>
+     <td><?=$product['count']?></td>
+     </tr>
+     <tr>
+<?php
+    $totalPrice+=($product['price']*$product['count']);
+
+endforeach;
+?>
+     <tr>
+     <th>Итоговая стоимость</th>
+     <td><?=$totalPrice?></td>
+     </tr>
+     </table>
+<?php
+//Шах
+
+    echo '<table border="1">';
+    for($row=1;$row<=6;$row++){
+        echo "<tr></tr>";
+        for($col=1;$col<=6;$col++) {
+            if(($row+$col) % 2 == 0) {
+                echo "<td class=\"white\"></td>";
+            } else {
+                echo "<td class=\"black\"></td>";
+            }
+        }
+     
+    }
+    echo '</table>';
+//Мат
+echo '<table align="center" border="1">';
+$numDay=1;
+$nummDay=27;
+$currentDay=11;
+$weekend=0;
+for($day=0;$day<=4;$day++){
+    echo "<tr ></tr>";
+    for($day2=0;$day2<=6;$day2++){
+        $weekend++;
+        if($weekend===8){
+            $weekend=1;
+        }
+        if($nummDay<=30){
+            echo "<td class=\"days\"></td>";
+            $nummDay++;
+        }elseif($numDay<=31){
+            if($numDay===$currentDay){
+                echo "<td align=\"center\" class=\"currentdays\">$numDay</td>";
+            }elseif($weekend===6||$weekend===7){
+                echo "<td align=\"center\" class=\"weekend\">$numDay</td>";
+            }else{
+                echo "<td align=\"center\" class=\"days\">$numDay</td>";
+            }
+            $numDay++;
+        }else{
+            echo "<td class=\"days\"></td>";
+        }
+    }
+}
+ ?>
+
+ 
+ 
